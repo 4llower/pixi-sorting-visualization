@@ -1,0 +1,33 @@
+{
+  "name": "webgl-sorting-visualization",
+  "version": "0.0.1",
+  "description": "WebGL visualization of different sorting algorithms",
+  "main": "index.js",
+  "scripts": {
+    "dev": "esbuild src/app.ts --servedir=www --outdir=www/js --bundle"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/4llower/webgl-sorting-visualization.git"
+  },
+  "keywords": [
+    "WebGL",
+    "Algorithms",
+    "Sort",
+    "Execution Time",
+    "Quick Sort",
+    "Merge Sort"
+  ],
+  "author": "4llower",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/4llower/webgl-sorting-visualization/issues"
+  },
+  "homepage": "https://github.com/4llower/webgl-sorting-visualization#readme",
+  "devDependencies": {
+    "esbuild": "^0.14.34"
+  },
+  "browser": {
+    "path": "path-browserify"
+  }
+}
