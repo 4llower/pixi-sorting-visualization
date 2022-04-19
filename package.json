@@ -1,14 +1,14 @@
 {
-  "name": "webgl-sorting-visualization",
+  "name": "pixi-sorting-visualization",
   "version": "0.0.1",
-  "description": "WebGL visualization of different sorting algorithms",
+  "description": "Pixi visualization of different sorting algorithms",
   "main": "index.js",
   "scripts": {
     "dev": "esbuild src/app.ts --servedir=www --outdir=www/js --bundle"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/4llower/webgl-sorting-visualization.git"
+    "url": "git+https://github.com/4llower/pixi-sorting-visualization.git"
   },
   "keywords": [
     "WebGL",
@@ -21,9 +21,9 @@
   "author": "4llower",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/4llower/webgl-sorting-visualization/issues"
+    "url": "https://github.com/4llower/pixi-sorting-visualization/issues"
   },
-  "homepage": "https://github.com/4llower/webgl-sorting-visualization#readme",
+  "homepage": "https://github.com/4llower/pixi-sorting-visualization#readme",
   "devDependencies": {
     "esbuild": "^0.14.34"
   },
