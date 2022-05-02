@@ -5,18 +5,38 @@ import tinygradient from "tinygradient";
 
 const ticker = PIXI.Ticker.shared;
 
+const delay = 0;
+const queueLoadPerIterations = 500;
+const bufferSize = 3000000;
+
 export class GradientCircle implements Visualization {
   private data: number[];
+  private currentData: number[];
   private graphics: PIXI.Graphics;
   private globalContainer: PIXI.Graphics;
   private colors: number[];
+  private height: number;
+  private width: number;
+  private lastTS: number;
+  private queue: [number, number][];
+  private qAddPointer: number;
+  private qCheckPointer: number;
 
-  constructor(globalContainer: PIXI.Graphics, data?: number[]) {
+  constructor(
+    globalContainer: PIXI.Graphics,
+    width: number,
+    height: number,
+    data?: number[]
+  ) {
     this.data = [];
 
     if (data) {
       this.data = compressData([...data]);
+      this.currentData = [...this.data];
     }
+
+    this.height = height;
+    this.width = width;
 
     this.globalContainer = globalContainer;
 
@@ -27,32 +47,106 @@ export class GradientCircle implements Visualization {
       this.loadColors(this.data.length);
     }
     // TODO: remove
-    // this.randomize();
+
+    this.qAddPointer = 0;
+    this.qCheckPointer = 0;
+    this.queue = new Array(bufferSize).fill([-1, -1]);
+
+    ticker.add(() => this.draw());
   }
 
-  loadColors(steps: number) {
-    const gradient = tinygradient("blue", "green", "red");
+  public isReady() {
+    return !!this.queue.length;
+  }
+
+  public clearQueue() {
+    this.qAddPointer = 0;
+    this.qCheckPointer = 0;
+    this.queue.fill([-1, -1]);
+  }
+
+  public loadColors(steps: number) {
+    const gradient = tinygradient("red", "blue", "green");
     this.colors = gradient
       .hsv(steps, "long")
       .map((grad) => +("0x" + grad.toHex()));
   }
 
-  load(data: number[]) {
+  public load(data: number[]) {
     this.data = compressData([...data]);
     this.loadColors(this.data.length);
+    this.currentData = [...this.data];
   }
-  swap(i: number, j: number) {}
-  randomize() {
-    this.data.sort(() => Math.random() - Math.random());
+
+  swap(i: number, j: number) {
+    [this.currentData[i], this.currentData[j]] = [
+      this.currentData[j],
+      this.currentData[i],
+    ];
+
+    if (this.qAddPointer === bufferSize) {
+      this.qAddPointer = 0;
+    }
+
+    this.queue[this.qAddPointer++] = [i, j];
+  }
+
+  compare(i: number, j: number) {
+    return this.currentData[i] > this.currentData[j];
+  }
+
+  size() {
+    return this.data.length;
+  }
+
+  loadFromQueue() {
+    if (!this.queue.length) return;
+
+    for (let iter = 0; iter < queueLoadPerIterations; ++iter) {
+      if (this.qCheckPointer === bufferSize) {
+        this.qCheckPointer = 0;
+      }
+
+      const [i, j] = this.queue[this.qCheckPointer++];
+
+      if (i === -1) {
+        return;
+      }
+
+      this.queue[this.qCheckPointer - 1] = [-1, -1];
+
+      [this.data[i], this.data[j]] = [this.data[j], this.data[i]];
+    }
   }
 
   draw() {
+    const timestamp = Date.now();
+    if (timestamp - this.lastTS < delay) return;
+
+    this.lastTS = timestamp;
+
     this.graphics.clear();
+
+    this.loadFromQueue();
+
+    const [cx, cy] = this.getCenter();
+    const radius = this.getRadius();
+
     for (let i = 0; i < this.data.length; ++i) {
+      const angle = 2 * Math.PI * (i / this.data.length);
+
       this.graphics
         .lineStyle({ color: this.colors[this.data[i]], width: 1 })
-        .moveTo(0, i)
-        .lineTo(1000, i);
+        .moveTo(cx, cy)
+        .lineTo(Math.cos(angle) * radius + cx, Math.sin(angle) * radius + cy);
     }
+  }
+
+  private getCenter(): [number, number] {
+    return [Math.floor(this.width / 2), Math.floor(this.height / 2)];
+  }
+
+  private getRadius(): number {
+    return Math.floor(Math.min(this.height, this.width) / 2.5);
   }
 }
