@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   app.stage.addChild(container);
 
-  const data = new Array(1000).fill(0).map((_, index) => index);
+  const data = new Array(900).fill(0).map((_, index) => index);
 
   const circle = new GradientCircle(container, data);
 

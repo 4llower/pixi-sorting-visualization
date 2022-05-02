@@ -1,4 +1,4 @@
-export function compressData(data: number[]): [number[], number] {
+export function compressData(data: number[]): number[] {
   const copy = [...data].sort((a, b) => (a > b ? 1 : -1));
   const saved = {};
 
@@ -13,5 +13,5 @@ export function compressData(data: number[]): [number[], number] {
     result.push(saved[elem]);
   }
 
-  return [result, copy[copy.length - 1]];
+  return result;
 }
