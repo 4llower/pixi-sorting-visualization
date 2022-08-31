@@ -74,10 +74,10 @@ export class GradientCircle implements Visualization {
   }
 
   swap(i: number, j: number) {
-    [this.currentData[i], this.currentData[j]] = [
-      this.currentData[j],
-      this.currentData[i],
-    ];
+    const temp = this.currentData[i];
+
+    this.currentData[i] = this.currentData[j];
+    this.currentData[j] = temp;
 
     if (this.qAddPointer === bufferSize) {
       this.qAddPointer = 0;
@@ -86,7 +86,11 @@ export class GradientCircle implements Visualization {
     this.queue[this.qAddPointer++] = [i, j];
   }
 
-  compare(i: number, j: number) {
+  getValue(index: number) {
+    return this.currentData[index];
+  }
+
+  isBigger(i: number, j: number) {
     return this.currentData[i] > this.currentData[j];
   }
 

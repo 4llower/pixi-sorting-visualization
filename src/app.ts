@@ -2,9 +2,12 @@ import { GradientCircle } from "./visualizations";
 import * as PIXI from "pixi.js";
 
 import "./styles";
-import { bubbleSort } from "./algorithms/bubble-sort";
 
-const arraySize = 2000;
+import { bubbleSort } from "./algorithms/bubble-sort";
+import { quickSort } from "algorithms/quick-sort";
+import { randomize } from "algorithms/randomize";
+
+const arraySize = 20000;
 
 window.addEventListener("DOMContentLoaded", () => {
   const { innerHeight, innerWidth } = window;
@@ -25,6 +28,8 @@ window.addEventListener("DOMContentLoaded", () => {
   const circle = new GradientCircle(container, innerWidth, innerHeight);
 
   circle.load(data);
+  randomize(circle);
 
-  bubbleSort(circle);
+  // bubbleSort(circle);
+  quickSort(circle, 0, arraySize - 1);
 });

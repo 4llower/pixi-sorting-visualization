@@ -1,7 +1,8 @@
 declare interface Visualization {
   load: (data: number[]) => void;
   swap: (i: number, j: number) => void;
-  compare: (i: number, j: number) => boolean;
+  isBigger: (i: number, j: number) => boolean;
+  getValue: (index: number) => number;
   size(): number;
   isReady(): boolean;
   clearQueue(): void;
