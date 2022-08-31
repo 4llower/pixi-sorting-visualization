@@ -1,6 +1,6 @@
-export function compressData(data: number[]): number[] {
+export function getIndexedData(data: number[]): number[] {
   const copy = [...data].sort((a, b) => (a > b ? 1 : -1));
-  const saved = {};
+  const saved: { [key: number]: number } = {};
 
   let index = 0;
   for (const elem of copy) {
@@ -8,7 +8,7 @@ export function compressData(data: number[]): number[] {
     index++;
   }
 
-  const result = [];
+  const result: number[] = [];
   for (const elem of data) {
     result.push(saved[elem]);
   }

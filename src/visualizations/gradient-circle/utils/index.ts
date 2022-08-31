@@ -1,1 +1,1 @@
-export * from "./compressData";
+export * from "./getIndexedData";

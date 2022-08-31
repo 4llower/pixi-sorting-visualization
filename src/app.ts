@@ -4,6 +4,8 @@ import * as PIXI from "pixi.js";
 import "./styles";
 import { bubbleSort } from "./algorithms/bubble-sort";
 
+const arraySize = 2000;
+
 window.addEventListener("DOMContentLoaded", () => {
   const { innerHeight, innerWidth } = window;
 
@@ -18,9 +20,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
   app.stage.addChild(container);
 
-  const data = new Array(1700).fill(0).map((_, index) => index);
+  const data = new Array(arraySize).fill(0).map((_, index) => index);
 
-  const circle = new GradientCircle(container, innerWidth, innerHeight, data);
+  const circle = new GradientCircle(container, innerWidth, innerHeight);
+
+  circle.load(data);
 
   bubbleSort(circle);
 });

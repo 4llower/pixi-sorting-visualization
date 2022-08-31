@@ -1,7 +1,8 @@
 import * as PIXI from "pixi.js";
 
-import { compressData } from "./utils";
 import tinygradient from "tinygradient";
+
+import { getIndexedData } from "./utils";
 
 const ticker = PIXI.Ticker.shared;
 
@@ -22,18 +23,12 @@ export class GradientCircle implements Visualization {
   private qAddPointer: number;
   private qCheckPointer: number;
 
-  constructor(
-    globalContainer: PIXI.Graphics,
-    width: number,
-    height: number,
-    data?: number[]
-  ) {
+  constructor(globalContainer: PIXI.Graphics, width: number, height: number) {
     this.data = [];
+    this.currentData = [];
 
-    if (data) {
-      this.data = compressData([...data]);
-      this.currentData = [...this.data];
-    }
+    this.lastTS = 0;
+    this.colors = [];
 
     this.height = height;
     this.width = width;
@@ -73,7 +68,7 @@ export class GradientCircle implements Visualization {
   }
 
   public load(data: number[]) {
-    this.data = compressData([...data]);
+    this.data = getIndexedData([...data]);
     this.loadColors(this.data.length);
     this.currentData = [...this.data];
   }
@@ -136,7 +131,7 @@ export class GradientCircle implements Visualization {
       const angle = 2 * Math.PI * (i / this.data.length);
 
       this.graphics
-        .lineStyle({ color: this.colors[this.data[i]], width: 1 })
+        .lineStyle({ color: this.colors[this.data[i]], width: 2 })
         .moveTo(cx, cy)
         .lineTo(Math.cos(angle) * radius + cx, Math.sin(angle) * radius + cy);
     }
