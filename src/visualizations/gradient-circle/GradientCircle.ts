@@ -62,9 +62,16 @@ export class GradientCircle implements Visualization {
 
   public loadColors(steps: number) {
     const gradient = tinygradient("red", "blue", "green");
+
     this.colors = gradient
       .hsv(steps, "long")
       .map((grad) => +("0x" + grad.toHex()));
+
+    for (let i = 0; i < Math.floor(steps / 4); ++i) {
+      const value = this.colors.shift();
+
+      if (value) this.colors.push(value);
+    }
   }
 
   public load(data: number[]) {
@@ -118,6 +125,13 @@ export class GradientCircle implements Visualization {
     }
   }
 
+  getColor(value: number) {
+    if (value > this.colors.length)
+      throw new Error("Gradation couldn't more than number of color steps");
+
+    return this.colors[value];
+  }
+
   draw() {
     const timestamp = Date.now();
     if (timestamp - this.lastTS < delay) return;
@@ -135,7 +149,7 @@ export class GradientCircle implements Visualization {
       const angle = 2 * Math.PI * (i / this.data.length);
 
       this.graphics
-        .lineStyle({ color: this.colors[this.data[i]], width: 2 })
+        .lineStyle({ color: this.getColor(this.data[i]), width: 2 })
         .moveTo(cx, cy)
         .lineTo(Math.cos(angle) * radius + cx, Math.sin(angle) * radius + cy);
     }

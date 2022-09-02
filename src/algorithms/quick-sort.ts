@@ -1,7 +1,7 @@
 function partition(v: Visualization, left: number, right: number): number {
-  const mid = Math.floor((left + right) / 2);
-
-  const value = v.getValue(mid);
+  const value = v.getValue(
+    left + Math.floor((right - left + 1) * Math.random())
+  );
 
   let i = left;
   let j = right;

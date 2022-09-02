@@ -32,6 +32,6 @@ window.addEventListener("DOMContentLoaded", () => {
   randomize(circle);
 
   // bubbleSort(circle);
-  // quickSort(circle, 0, arraySize - 1);
-  mergeSort(circle, 0, arraySize - 1);
+  quickSort(circle, 0, arraySize - 1);
+  // mergeSort(circle, 0, arraySize - 1);
 });
