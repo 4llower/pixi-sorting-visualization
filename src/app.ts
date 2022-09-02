@@ -6,6 +6,7 @@ import "./styles";
 import { bubbleSort } from "./algorithms/bubble-sort";
 import { quickSort } from "algorithms/quick-sort";
 import { randomize } from "algorithms/randomize";
+import { mergeSort } from "algorithms/merge-sort";
 
 const arraySize = 20000;
 
@@ -31,5 +32,6 @@ window.addEventListener("DOMContentLoaded", () => {
   randomize(circle);
 
   // bubbleSort(circle);
-  quickSort(circle, 0, arraySize - 1);
+  // quickSort(circle, 0, arraySize - 1);
+  mergeSort(circle, 0, arraySize - 1);
 });
