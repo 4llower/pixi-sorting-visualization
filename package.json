@@ -3,7 +3,10 @@
   "version": "0.0.1",
   "description": "Pixi visualization of different sorting algorithms",
   "scripts": {
-    "dev": "esbuild src/app.ts --servedir=www --outdir=www --bundle"
+    "dev": "esbuild src/app.ts --servedir=www --outdir=www --bundle",
+    "build": "esbuild src/app.ts --outdir=build --bundle && cp ./www/index.html ./build/index.html",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "repository": {
     "type": "git",
@@ -25,7 +28,8 @@
   "homepage": "https://github.com/4llower/pixi-sorting-visualization#readme",
   "devDependencies": {
     "@types/jquery": "^3.5.14",
-    "esbuild": "^0.14.34"
+    "esbuild": "^0.14.34",
+    "gh-pages": "^4.0.0"
   },
   "browser": {
     "path": "path-browserify"
