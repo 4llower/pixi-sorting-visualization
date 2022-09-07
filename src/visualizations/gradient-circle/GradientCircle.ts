@@ -76,7 +76,9 @@ export class GradientCircle implements Visualization {
 
   public load(data: number[]) {
     this.data = getIndexedData([...data]);
+
     this.loadColors(this.data.length);
+
     this.currentData = [...this.data];
   }
 
