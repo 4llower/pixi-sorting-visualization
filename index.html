@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sorting Visualization</title>
+  </head>
+  <body>
+    <main>
+      <canvas id="pixi-sorting"></canvas>
+      <div class="menu">
+        <div class="menu__column">
+          <p class="menu__header">Actions</p>
+
+          <div class="menu__row">
+            <button class="menu__button" id="bubble-sort">Bubble_Sort</button>
+          </div>
+          <div class="menu__row">
+            <button class="menu__button" id="quick-sort">Quick_Sort</button>
+          </div>
+          <div class="menu__row">
+            <button class="menu__button" id="merge-sort">Merge_Sort</button>
+          </div>
+        </div>
+
+        <div class="menu__column">
+          <p id="preview-text"></p>
+        </div>
+
+        <div class="menu__column" id="visualizations">
+          <p class="menu__header">Visualizations</p>
+          <div class="menu__row">
+            <button class="menu__button">Sticks_Shift</button>
+          </div>
+          <div class="menu__row">
+            <button class="menu__button">Gradient_Circle</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css?family=JetBrains+Mono"
+  />
+  <link href="app.css" rel="stylesheet" />
+  <script src="app.js"></script>
+</html>
