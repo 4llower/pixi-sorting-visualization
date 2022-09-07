@@ -24,12 +24,14 @@
   },
   "homepage": "https://github.com/4llower/pixi-sorting-visualization#readme",
   "devDependencies": {
+    "@types/jquery": "^3.5.14",
     "esbuild": "^0.14.34"
   },
   "browser": {
     "path": "path-browserify"
   },
   "dependencies": {
+    "jquery": "^3.6.1",
     "pixi.js": "^6.3.0",
     "tinygradient": "^1.1.5"
   }

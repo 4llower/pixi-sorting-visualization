@@ -1,0 +1,44 @@
+.menu {
+    position: absolute;
+    top: 30px;
+    left: 40px;
+    right: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu__column {
+    display: flex;
+    flex-direction: column;
+}
+
+.menu__row {
+    margin-top: 10px;
+}
+
+.menu__row:first-child {
+    margin-bottom: 10px;
+}
+
+.menu__button {
+}
+
+.menu__header {
+    font-size: 20px;
+    cursor: default;
+    margin-bottom: 5px;
+    color: yellow;
+}
+
+.menu__button:hover {
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+.menu__button-selected {
+    
+}
+
+#visualizations {
+    text-align: right;
+}
